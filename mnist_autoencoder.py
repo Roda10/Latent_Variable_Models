@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 
 # Set random seed for reproducibility
-torch.manual_seed(42)
+torch.manual_seed(40)
 
 # Hyperparameters
 input_size = 784  # 28x28 images flattened
