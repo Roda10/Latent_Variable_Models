@@ -68,7 +68,7 @@ class VAE(nn.Module):
         return self.decode(z), mu, logvar
 
 
-model = VAE(latent_dim=20).to(device)
+model = VAE(latent_dim=latent_dim).to(device)
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
 # Loss function(ELBO)
@@ -82,10 +82,10 @@ def vae_loss(recon_x, x, mu, logvar):
     
     return BCE + KLD
 
-model = VAE(latent_dim=20).to(device)
+model = VAE(latent_dim=latent_dim).to(device)
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
-num_epochs = 10
+num_epochs = 20
 for epoch in range(num_epochs):
     model.train()
     train_loss = 0
@@ -127,7 +127,7 @@ def show_reconstructions(model, n=10):
 show_reconstructions(model)
 
 # Generate new digits
-def generate_samples(model, latent_dim=20):
+def generate_samples(model, latent_dim=latent_dim):
     model.eval()
     with torch.no_grad():
         # Sample from standard normal
@@ -151,7 +151,7 @@ def plot_latent_space(model):
     with torch.no_grad():
         for data, label in test_loader:
             data = data.to(device)
-            mu, _ = model.encode(data.view(-1, 784))
+            mu, _ = model.encode(data.view(-1, input_size))
             latents.append(mu.cpu())
             labels.append(label)
     
